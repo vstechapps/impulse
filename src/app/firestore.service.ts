@@ -8,12 +8,12 @@ import { logger } from './logger.service';
   providedIn: 'root'
 })
 export class FirestoreService {
-  
+
   firestore: Firestore;
 
-  constructor(firebase: FirebaseService) {
+  constructor(private firebase: FirebaseService) {
     logger.log("FirestoreService: Init",this);
-    this.firestore = getFirestore(firebase.app);
+    this.firestore = getFirestore(this.firebase.app);
     logger.log("FirestoreService: Init Complete",this);
-   }
+  }
 }
