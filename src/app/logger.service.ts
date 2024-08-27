@@ -8,4 +8,5 @@ export class logger {
       console.log(...args);
     }
   }
+  
 }
