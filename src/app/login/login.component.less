@@ -1,0 +1,69 @@
+@background-color: #f5f5f5;
+@card-background-color: white;
+@card-padding: 40px;
+@card-border-radius: 8px;
+@box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+@text-color-primary: #333;
+@text-color-secondary: #777;
+@button-background-color: #4285F4;
+@button-hover-color: #357ae8;
+@button-text-color: white;
+@button-padding: 10px;
+@button-border-radius: 4px;
+@font-size-title: 24px;
+@font-size-subtitle: 14px;
+@font-size-button: 16px;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: @background-color;
+}
+
+.login-card {
+  background-color: @card-background-color;
+  padding: @card-padding;
+  border-radius: @card-border-radius;
+  box-shadow: @box-shadow;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-title {
+  font-size: @font-size-title;
+  margin-bottom: 10px;
+  color: @text-color-primary;
+}
+
+.login-subtitle {
+  font-size: @font-size-subtitle;
+  margin-bottom: 30px;
+  color: @text-color-secondary;
+}
+
+.google-signin-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: @button-padding;
+  background-color: @button-background-color;
+  color: @button-text-color;
+  border: none;
+  border-radius: @button-border-radius;
+  font-size: @font-size-button;
+  cursor: pointer;
+
+  &:hover {
+    background-color: @button-hover-color;
+  }
+
+  .google-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+}
