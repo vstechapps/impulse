@@ -1,69 +1,137 @@
-@background-color: #f5f5f5;
-@card-background-color: white;
-@card-padding: 40px;
-@card-border-radius: 8px;
-@box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-@text-color-primary: #333;
-@text-color-secondary: #777;
-@button-background-color: #4285F4;
-@button-hover-color: #357ae8;
-@button-text-color: white;
-@button-padding: 10px;
-@button-border-radius: 4px;
-@font-size-title: 24px;
-@font-size-subtitle: 14px;
-@font-size-button: 16px;
-
-.login-container {
+/* Container */
+.container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: @background-color;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 20px;
 }
 
-.login-card {
-  background-color: @card-background-color;
-  padding: @card-padding;
-  border-radius: @card-border-radius;
-  box-shadow: @box-shadow;
-  text-align: center;
-  max-width: 400px;
-  width: 100%;
-}
-
-.login-title {
-  font-size: @font-size-title;
-  margin-bottom: 10px;
-  color: @text-color-primary;
-}
-
-.login-subtitle {
-  font-size: @font-size-subtitle;
-  margin-bottom: 30px;
-  color: @text-color-secondary;
-}
-
-.google-signin-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: @button-padding;
-  background-color: @button-background-color;
-  color: @button-text-color;
+/* Card */
+.card {
+  padding: 40px;
+  border-radius: 8px;
   border: none;
-  border-radius: @button-border-radius;
-  font-size: @font-size-button;
-  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  width: 100%;
+}
 
-  &:hover {
-    background-color: @button-hover-color;
+/* Card Title */
+.card-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #202124;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form Labels */
+.form-label {
+  display: none; /* Google login doesn't show labels above inputs */
+}
+
+/* Input Fields */
+.form-control {
+  height: 40px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+  box-shadow: none;
+}
+
+.form-control:focus {
+  border-color: #1a73e8;
+  outline: none;
+}
+
+/* Placeholder Text */
+::placeholder {
+  color: #5f6368;
+  opacity: 1; /* Ensures the placeholder is fully opaque */
+}
+
+/* Primary Login Button */
+.btn-primary {
+  height: 44px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #1a73e8;
+  border: none;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background-color: #1558c7;
+}
+
+/* Google Sign-In Button */
+.btn-danger {
+  height: 44px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: 600;
+  background-color: #db4437;
+  border: none;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.btn-danger:hover {
+  background-color: #c23321;
+}
+
+/* Divider with Lines */
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #dadce0;
+}
+
+.divider:not(:empty)::before {
+  margin-right: 15px;
+}
+
+.divider:not(:empty)::after {
+  margin-left: 15px;
+}
+
+.divider span {
+  color: #5f6368;
+  font-size: 14px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 576px) {
+  .card {
+    padding: 30px;
   }
 
-  .google-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+  .card-title {
+    font-size: 22px;
+  }
+
+  .form-control {
+    height: 50px;
+    padding: 8px 16px;
+    font-size: 15px;
+  }
+
+  .btn-primary, .btn-danger {
+    height: 42px;
+    font-size: 15px;
   }
 }
