@@ -1,8 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { FirebaseApp } from 'firebase/app';
 import { FirebaseService } from './firebase.service';
-import { collection, Firestore, getDocs, getFirestore, limit, query } from 'firebase/firestore';
+import { collection, endAt, Firestore, getDocs, getFirestore, limit, orderBy, query, startAt } from 'firebase/firestore';
 import { logger } from './logger.service';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,6 @@ export class FirestoreService {
   firestore: Firestore;
 
   data:any = {};
-  cursors:any = {};
 
   refresh:EventEmitter<string> = new EventEmitter<string>();
 
@@ -22,8 +22,25 @@ export class FirestoreService {
     logger.log("FirestoreService: Init Complete",this);
   }
 
+  public read(key:string,cursor:Cursor={order:"order",start:0,end:100,limit:100}):Observable<any[]>{
+    logger.log("FirestoreService: read:: "+key);
+    let collect =  collection(this.firestore, key);
+    let q = query(collect, startAt(cursor.start), endAt(cursor.end), limit(cursor.limit), orderBy(cursor.order));
+    let data:any[] = [];
+    getDocs(q).then(res=>{
+      res.forEach(doc=>
+        {
+          let d:any = doc.data();
+          d.id=doc.id;
+          data.push(d);
+    });
+  });
+   return of(data);
+  }
+
+
   public load(key:string,cursor:{order:number,limit:number}={order:0,limit:100}){
-    logger.log("FirestoreService: Refreshing "+key)
+    logger.log("FirestoreService: Refreshing "+key);
     let collect =  collection(this.firestore, key);
     const q = query(collect, limit(cursor.limit));
     getDocs(q).then(res=>{
@@ -40,4 +57,11 @@ export class FirestoreService {
   }
 
 
+}
+
+type Cursor = {
+  order:string;
+  start:number;
+  end:number;
+  limit:number;
 }
