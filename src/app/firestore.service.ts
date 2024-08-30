@@ -14,46 +14,24 @@ export class FirestoreService {
 
   data:any = {};
 
-  refresh:EventEmitter<string> = new EventEmitter<string>();
-
   constructor(private firebase: FirebaseService) {
     logger.log("FirestoreService: Init",this);
     this.firestore = getFirestore(this.firebase.app);
     logger.log("FirestoreService: Init Complete",this);
   }
 
-  public read(key:string,cursor:Cursor={order:"order",start:0,end:100,limit:100}):Observable<any[]>{
+  public async read(key:string,cursor:Cursor={order:"order",start:0,end:100,limit:100}):Promise<any[]>{
     logger.log("FirestoreService: read:: "+key);
     let collect =  collection(this.firestore, key);
     let q = query(collect, startAt(cursor.start), endAt(cursor.end), limit(cursor.limit), orderBy(cursor.order));
     let data:any[] = [];
-    getDocs(q).then(res=>{
-      res.forEach(doc=>
-        {
-          let d:any = doc.data();
-          d.id=doc.id;
-          data.push(d);
+    let res = await getDocs(q);
+    res.forEach(doc=>{
+      let d:any = doc.data();
+      d.id=doc.id;
+      data.push(d);
     });
-  });
-   return of(data);
-  }
-
-
-  public load(key:string,cursor:{order:number,limit:number}={order:0,limit:100}){
-    logger.log("FirestoreService: Refreshing "+key);
-    let collect =  collection(this.firestore, key);
-    const q = query(collect, limit(cursor.limit));
-    getDocs(q).then(res=>{
-    this.data[key] =[];
-    res.forEach(doc=>
-      {
-        let d:any = doc.data();
-        d.id=doc.id;
-        this.data[key].push(d);
-      });
-      this.data[key].sort((a:any,b:any)=>{return a.order-b.order});
-      this.refresh.emit(key);
-    });
+    return Promise.resolve(data);
   }
 
 
