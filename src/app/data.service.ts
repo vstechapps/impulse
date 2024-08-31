@@ -12,35 +12,35 @@ export class DataService {
 
   constructor(private firestore: FirestoreService,private loader:LoaderService) {
     logger.log("DataService: Init",this);
-    this.load();
+    //this.load();
     logger.log("DataService: Init Complete",this);
   }
   
-  private load(){
+  public async load(){
     let defaults = ["pages","models","rules","menu"];
-    defaults.forEach(async (key)=>{
+    for(var key of defaults){
       this.loader.show();
       let j = window.localStorage.getItem(key);
-      let k = await this.get("config",key);
-      let l = window.localStorage.getItem(key+"_refresh_dtm");
+      let k = await this.get("config", key);
+      let l = window.localStorage.getItem(key + "_refresh_dtm");
       let r = true;
-      if(l!=null && k!=null && k["refresh"]!=null && (new Date(l)).getTime()>(new Date(k["refresh"]).getTime())){
+      if (l != null && k != null && k["refresh"] != null && (new Date(l)).getTime() > (new Date(k["refresh"]).getTime())) {
         r = false;
       }
-      if(j==null || r){
+      if (j == null || r) {
         this.data[key] = await this.firestore.read(key);
         this.loader.hide();
-        try{
-          window.localStorage.setItem(key,JSON.stringify(this.data[key]));
-          window.localStorage.setItem(key+"_refresh_dtm",(new Date()).toISOString());
-        }catch(err){
+        try {
+          window.localStorage.setItem(key, JSON.stringify(this.data[key]));
+          window.localStorage.setItem(key + "_refresh_dtm", (new Date()).toISOString());
+        } catch (err) {
           console.error(err);
         }
-      }else{
+      } else {
         this.data[key] = JSON.parse(j);
         this.loader.hide();
       }
-    });
+    }
   }
 
   private async get(col:string,key:string){

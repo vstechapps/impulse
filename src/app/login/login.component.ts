@@ -19,8 +19,8 @@ export class LoginComponent {
 
   constructor(private router:Router, private auth: AuthenticationService, private loader:LoaderService){
     logger.log("LoginComponent: Init",this);
-    
-    logger.log("AuthenticationService: Init Complete",this);
+    this.init();
+    logger.log("LoginComponent: Init Complete",this);
   }
 
   init(){

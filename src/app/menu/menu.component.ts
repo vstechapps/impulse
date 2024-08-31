@@ -4,6 +4,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { DataService } from '../data.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { logger } from '../logger.service';
 
 @Component({
   selector: 'app-menu',
@@ -25,6 +26,7 @@ export class MenuComponent {
   smenus:Menu[] = [];
 
   constructor(public router:Router, public route:ActivatedRoute, public auth: AuthenticationService, public data:DataService){
+    logger.log("MenuComponent: Init",this);
     this.active = this.router.url;
     this.user = this.auth.user;
     this.load();
@@ -35,7 +37,7 @@ export class MenuComponent {
     });
     this.smenus = data.read("menu");
     this.auth.refresh.subscribe(user=>{this.user=user;this.load();});
-    
+    logger.log("MenuComponent: Init Complete",this);
   }
 
   load(){
