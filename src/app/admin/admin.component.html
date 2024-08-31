@@ -1,0 +1,55 @@
+<div class="row m-0" *ngIf="firestore.isAdmin">
+    <div class="mt-3 col-6 text-end">
+        <input type="text" [(ngModel)]="key" placeholder="Collection" />
+    </div>
+    <div class="mt-3 col-6">
+        <button class="btn btn-primary btn-sm" (click)="fetch()">Fetch</button>
+    </div>
+</div>
+<div class="row m-0" *ngIf="firestore.isAdmin">
+    <div class="p-3">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Document Key</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let doc of documents">
+                    <td>{{doc.id}}</td>
+                    <td>
+                        <i class="m-2 material-icons pointer" (click)="edit(doc)">edit</i>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Add New Document</th>
+                    <th><i class="material-icons mx-2 text-info pointer" (click)="edit({})">add</i></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div class="modal extended" *ngIf="document">
+    <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Document Data</h4>
+          <button type="button" class="btn-close" (click)="document=undefined" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 my-2">
+                    <textarea rows="15" class="form-control x" [(ngModel)]="data"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <i class="m-2 text-primary material-icons pointer" (click)="save()">save</i>
+            <i class="m-2 text-danger material-icons pointer" (click)="delete()">delete</i>
+        </div>
+      </div>
+    </div>
+</div>

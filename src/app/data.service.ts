@@ -6,8 +6,6 @@ import { FirestoreService } from './firestore.service';
   providedIn: 'root'
 })
 export class DataService {
-
-  private config:any;
   
   private data:any;
 
@@ -22,11 +20,16 @@ export class DataService {
     defaults.forEach((key)=>{
       let j = window.localStorage.getItem(key);
       let k = this.get("config",key);
-      let r = k!=null && k.refresh==true;
+      let l = window.localStorage.getItem(key+"_refresh_dtm");
+      let r = true;
+      if(l!=null && k!=null && k["refresh"]!=null && (new Date(l)).getTime()>(new Date(k["refresh"]).getTime())){
+        r = false;
+      }
       if(j==null || r){
         this.data[key] = this.firestore.read(key);
         try{
           window.localStorage.setItem(key,JSON.parse(this.data[key]));
+          window.localStorage.setItem(key+"_refresh_dtm",(new Date()).toISOString());
         }catch(err){
           console.error(err);
         }
@@ -46,7 +49,6 @@ export class DataService {
     }
     return d;
   }
-
 }
 
 
