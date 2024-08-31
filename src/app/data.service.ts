@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { logger } from './logger.service';
 import { FirestoreService } from './firestore.service';
+import { LoaderService } from './loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,16 @@ export class DataService {
   
   private data:any={};
 
-  constructor(private firestore: FirestoreService) {
+  constructor(private firestore: FirestoreService,private loader:LoaderService) {
     logger.log("DataService: Init",this);
     this.load();
     logger.log("DataService: Init Complete",this);
   }
   
-  private async load(){
+  private load(){
     let defaults = ["pages","models","rules","menu"];
     defaults.forEach(async (key)=>{
+      this.loader.show();
       let j = window.localStorage.getItem(key);
       let k = await this.get("config",key);
       let l = window.localStorage.getItem(key+"_refresh_dtm");
@@ -27,6 +29,7 @@ export class DataService {
       }
       if(j==null || r){
         this.data[key] = await this.firestore.read(key);
+        this.loader.hide();
         try{
           window.localStorage.setItem(key,JSON.stringify(this.data[key]));
           window.localStorage.setItem(key+"_refresh_dtm",(new Date()).toISOString());
@@ -35,6 +38,7 @@ export class DataService {
         }
       }else{
         this.data[key] = JSON.parse(j);
+        this.loader.hide();
       }
     });
   }

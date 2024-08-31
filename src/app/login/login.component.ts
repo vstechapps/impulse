@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { LoaderService } from '../loader.service';
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
-import { FirestoreService } from '../firestore.service';
+import { GoogleAuthProvider } from 'firebase/auth';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { signInWithPopup } from 'firebase/auth';
-import { Role, User } from '../app.models';
 import { logger } from '../logger.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class LoginComponent {
 
   private provider = new GoogleAuthProvider();
 
-  constructor(private router:Router, private authentication: AuthenticationService, private loader:LoaderService){
+  constructor(private router:Router, private auth: AuthenticationService, private loader:LoaderService){
     logger.log("LoginComponent: Init",this);
     
     logger.log("AuthenticationService: Init Complete",this);
@@ -28,7 +26,7 @@ export class LoginComponent {
   init(){
     var redirect:any = sessionStorage.getItem("redirect");
     sessionStorage.removeItem("redirect");
-    this.authentication.refresh.subscribe(user=>{
+    this.auth.refresh.subscribe(user=>{
       if(user!=null){
         if(redirect){
           logger.log('LoginComponent: Login Success, Redirecting to ', redirect);
@@ -47,7 +45,7 @@ export class LoginComponent {
   login(){
     // Show Loader
     this.loader.show();
-    signInWithPopup(this.authentication.auth, this.provider)
+    signInWithPopup(this.auth.auth, this.provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
       const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -55,6 +53,7 @@ export class LoginComponent {
       // The signed-in user info.
       let user:any = result.user;
       logger.log("LoginComponent: SignedIn User:",user);
+      this.loader.hide();
   
     }).catch((error) => {
       // Hide Loader

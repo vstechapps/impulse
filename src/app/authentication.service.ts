@@ -71,4 +71,12 @@ export class AuthenticationService {
     }
 
   }
+
+  async logout(){
+    logger.log("AuthenticationService:logout:: Logging out user: "+this.user?.email);
+    this.user=undefined;
+    sessionStorage.clear();
+    this.firebase.log(Events.LOGOUT,this.user);
+    this.refresh.emit(this.user);
+  }
 }
