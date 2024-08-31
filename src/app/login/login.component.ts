@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { LoaderService } from '../loader.service';
 import { GoogleAuthProvider } from 'firebase/auth/web-extension';
+import { FirestoreService } from '../firestore.service';
+import { AuthenticationService } from '../authentication.service';
+import { Router } from '@angular/router';
+import { signInWithPopup } from 'firebase/auth';
+import { Role, User } from '../app.models';
+import { logger } from '../logger.service';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +19,57 @@ export class LoginComponent {
 
   private provider = new GoogleAuthProvider();
 
-  constructor(private loader:LoaderService){
+  constructor(private router:Router, private authentication: AuthenticationService, private loader:LoaderService){
+    logger.log("LoginComponent: Init",this);
+    
+    logger.log("AuthenticationService: Init Complete",this);
+  }
 
+  init(){
+    var redirect:any = sessionStorage.getItem("redirect");
+    sessionStorage.removeItem("redirect");
+    this.authentication.refresh.subscribe(user=>{
+      if(user!=null){
+        if(redirect){
+          logger.log('LoginComponent: Login Success, Redirecting to ', redirect);
+          this.router.navigateByUrl(redirect);
+        }else{
+          logger.log('LoginComponent: Login Success, Redirecting to home');
+          this.router.navigate(["home"]);
+        }
+      }else{
+        logger.log('LoginComponent: Login Failed, Redirecting to home');
+        this.router.navigate(["home"]);
+      }
+    });
   }
 
   login(){
+    // Show Loader
     this.loader.show();
-  }
+    signInWithPopup(this.authentication.auth, this.provider)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      // The signed-in user info.
+      let user:any = result.user;
+      logger.log("LoginComponent: SignedIn User:",user);
+  
+    }).catch((error) => {
+      // Hide Loader
+      this.loader.hide();
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error(error);
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+      // ...
+  });
+    
+ }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { LoaderComponent } from './loader/loader.component';
 
@@ -11,9 +11,9 @@ import { LoaderComponent } from './loader/loader.component';
   styleUrl: './app.component.less'
 })
 export class AppComponent {
-  title = 'impulse';
+  header:boolean =true;
 
-  constructor(){
+  constructor(public router: Router){
     
   }
 }

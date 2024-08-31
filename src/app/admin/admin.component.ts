@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { DocumentData, QueryDocumentSnapshot, addDoc, collection, deleteDoc, doc, getDocs, query, setDoc } from 'firebase/firestore';
 import { FirestoreService } from '../firestore.service';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, NgFor, NgIf],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.less'
 })

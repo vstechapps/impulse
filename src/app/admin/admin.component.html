@@ -1,4 +1,4 @@
-<div class="row m-0" *ngIf="firestore.isAdmin">
+<div class="row m-0">
     <div class="mt-3 col-6 text-end">
         <input type="text" [(ngModel)]="key" placeholder="Collection" />
     </div>
@@ -6,7 +6,7 @@
         <button class="btn btn-primary btn-sm" (click)="fetch()">Fetch</button>
     </div>
 </div>
-<div class="row m-0" *ngIf="firestore.isAdmin">
+<div class="row m-0">
     <div class="p-3">
         <table class="table">
             <thead>

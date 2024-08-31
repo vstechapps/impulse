@@ -12,7 +12,7 @@ import { FirestoreService } from './firestore.service';
 })
 export class AuthenticationService {
 
-  private auth: Auth;
+  public auth: Auth;
 
   public user?:User;
 
