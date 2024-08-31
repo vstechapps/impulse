@@ -1,0 +1,12 @@
+<div class="c">
+    <div class="text-end"><i class="material-icons pointer m-2" (click)="close.emit(true)">close</i></div>
+    <div class="m" *ngIf="auth.user">
+        <h4 style="margin-left:10px">{{auth.user.name}}</h4>
+    </div>
+    <div class="m">
+        <div *ngFor="let m of menus" class="pointer" [ngClass]="{'active':active=='/'+m.route}" (click)="focus(m.route)">
+            <i class="material-icons align-middle mx-2">{{m.icon}}</i>
+            <span class="align-middle">{{m.name}}</span>
+        </div>
+    </div>
+</div>

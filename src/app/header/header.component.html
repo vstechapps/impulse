@@ -1,1 +1,14 @@
-<p>header works!</p>
+<div class="c">
+    <div class="row m-0">
+        <div class="position-absolute col-2 p-2 m-1">
+            <button class="btn btn-default b" (click)="menu=!menu">
+                <i *ngIf="!auth.user" class="material-icons text-light">menu</i>
+                <img *ngIf="auth.user && auth.user.image" src="{{auth.user.image}}" />
+            </button>
+        </div>
+        <div class="col-12 p-0 text-center">
+            <app-logo (click)="home()"></app-logo>
+        </div>
+    </div>
+</div>
+<app-menu [hidden]="!menu" (close)="menu=false"></app-menu>
