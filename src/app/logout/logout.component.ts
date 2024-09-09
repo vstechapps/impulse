@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthenticationService } from '../authentication.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { signOut } from 'firebase/auth';
 
@@ -12,7 +12,7 @@ import { signOut } from 'firebase/auth';
 })
 export class LogoutComponent {
 
-  constructor(private router:Router, private auth: AuthenticationService){
+  constructor(private router:Router, private auth: UserService){
     this.auth.refresh.subscribe(user=>{
       if(user==undefined)this.router.navigate(["home"]);
     });

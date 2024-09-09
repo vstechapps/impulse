@@ -1,0 +1,63 @@
+<div id="3593661b72952004">
+</div>
+
+
+<div class="floating" *ngIf="user.user && user.user.role=='ADMIN'">
+    <div class="d-flex flex-column bd-highlight mb-3">
+        <button class="btn btn-warning" *ngIf="page" (click)="editPageModal=true"><i
+                class="material-icons pointer">edit</i></button>
+    </div>
+</div>
+
+<div class="modal extended" *ngIf="page && editPageModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Edit Page</h4>
+                <button type="button" class="btn-close" (click)="editPageModal=false" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="page.auth" id="flexCheck1">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Authentication
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="page.header" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Header
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="mx-2 pointer" [ngClass]="{'a':editPageView=='html'}"
+                            (click)="editPageView='html'">HTML</span>
+                        <span class="mx-2 pointer" [ngClass]="{'a':editPageView=='script'}"
+                            (click)="editPageView='script'">Script</span>
+                        <span class="mx-2 pointer" [ngClass]="{'a':editPageView=='style'}"
+                            (click)="editPageView='style'">Style</span>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-12 my-2" *ngIf="editPageView=='html'">
+                        <textarea rows="15" class="form-control x" [(ngModel)]="page.html"></textarea>
+                    </div>
+                    <div class="col-12 my-2" *ngIf="editPageView=='script'">
+                        <textarea rows="15" class="form-control x" [(ngModel)]="page.script"></textarea>
+                    </div>
+                    <div class="col-12 my-2" *ngIf="editPageView=='style'">
+                        <textarea rows="15" class="form-control x" [(ngModel)]="page.style"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="save()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

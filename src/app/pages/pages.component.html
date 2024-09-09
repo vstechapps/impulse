@@ -1,0 +1,6 @@
+<div class="row m-2" ></div>
+    <div class="col-12 my-2 border border-1 border-dark bg-info pointer fs-3 text-decoration-underline" 
+    *ngFor="let page of pages" (click)="navigate(page)">
+        {{page.name}}
+    </div> 
+</div>

@@ -30,6 +30,8 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "less",
             "assets": [
+              "src/404.html",
+              "src/CNAME",
               {
                 "glob": "**/*",
                 "input": "public"

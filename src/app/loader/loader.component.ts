@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from './loader.service';
 import { BehaviorSubject } from 'rxjs';
 import { AsyncPipe, NgIf } from '@angular/common';
 

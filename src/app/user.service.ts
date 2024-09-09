@@ -3,14 +3,14 @@ import { Events, FirebaseService } from './firebase.service';
 import { logger } from './logger.service';
 import { Auth, getAuth } from 'firebase/auth';
 import { Role, User } from './app.models';
-import { LoaderService } from './loader.service';
+import { LoaderService } from './loader/loader.service';
 import { collection, doc, getDoc, setDoc} from "firebase/firestore";
 import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class UserService {
 
   public auth: Auth;
 

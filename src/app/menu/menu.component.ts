@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { User } from '../app.models';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { AuthenticationService } from '../authentication.service';
+import { UserService } from '../user.service';
 import { DataService } from '../data.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { logger } from '../logger.service';
@@ -25,7 +25,7 @@ export class MenuComponent {
 
   smenus:Menu[] = [];
 
-  constructor(public router:Router, public route:ActivatedRoute, public auth: AuthenticationService, public data:DataService){
+  constructor(public router:Router, public route:ActivatedRoute, public auth: UserService, public data:DataService){
     logger.log("MenuComponent: Init",this);
     this.active = this.router.url;
     this.user = this.auth.user;

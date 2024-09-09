@@ -12,4 +12,15 @@ export enum Role{
     CLIENT="CLIENT",
     ADMIN="ADMIN"
 }
+
+
+export interface Page{
+    id:string;
+    name:string;
+    auth?:boolean;
+    header?:boolean;
+    html?:string;
+    script?:string;
+    style?:string;
+  }
   

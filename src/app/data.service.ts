@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { logger } from './logger.service';
 import { FirestoreService } from './firestore.service';
-import { LoaderService } from './loader.service';
+import { LoaderService } from './loader/loader.service';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class DataService {
     }
   }
 
-  private async get(col:string,key:string){
+  public async get(col:string,key:string){
     let d = null;
     if(this.data[col]==null){
       this.data[col] = await this.firestore.read(col);

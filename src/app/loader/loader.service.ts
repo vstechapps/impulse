@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { logger } from './logger.service';
+import { logger } from '../logger.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({

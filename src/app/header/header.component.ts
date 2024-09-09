@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AppService } from '../app.service';
 import { LogoComponent } from '../logo/logo.component';
 import { MenuComponent } from '../menu/menu.component';
-import { AuthenticationService } from '../authentication.service';
+import { UserService } from '../user.service';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -16,7 +16,7 @@ export class HeaderComponent {
   enabled:boolean = true;
   menu:boolean=false;
 
-  constructor(private app:AppService, public auth:AuthenticationService){
+  constructor(private app:AppService, public auth:UserService){
     this.app.$header.subscribe(k=>this.enabled=k);
   }
 

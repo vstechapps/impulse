@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { LoaderService } from '../loader.service';
+import { LoaderService } from '../loader/loader.service';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { AuthenticationService } from '../authentication.service';
+import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { signInWithPopup } from 'firebase/auth';
 import { logger } from '../logger.service';
@@ -17,7 +17,7 @@ export class LoginComponent {
 
   private provider = new GoogleAuthProvider();
 
-  constructor(private router:Router, private auth: AuthenticationService, private loader:LoaderService){
+  constructor(private router:Router, private auth: UserService, private loader:LoaderService){
     logger.log("LoginComponent: Init",this);
     this.init();
     logger.log("LoginComponent: Init Complete",this);
