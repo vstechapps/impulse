@@ -8,6 +8,7 @@ import { LoaderService } from '../loader/loader.service';
 import { Page } from '../app.models';
 import { NgClass, NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
+import { logger } from '../logger.service';
 
 @Component({
   selector: 'app-page',
@@ -39,11 +40,12 @@ export class PageComponent {
   }
 
   ngOnInit(): void {
+    this.init();
   }
 
   init(): void{
     let id = this.id? this.id: this.route.snapshot.paramMap.get('id');
-    console.log("Loading Page: "+id);
+    logger.log("Loading Page: "+id);
     if(id){
       this.refresh(id);
     }
@@ -52,7 +54,6 @@ export class PageComponent {
 
   async refresh(id:string){
     var page:Page = await this.data.get("pages",id);
-    console.log(page);
     if(page && page.auth && this.user.user==null){
       console.log("Redirecting to Login");
       if(this.route.snapshot.url.length>0){

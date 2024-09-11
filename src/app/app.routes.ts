@@ -5,10 +5,12 @@ import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HomeComponent } from './home/home.component';
 import { PageComponent } from './page/page.component';
+import { PagesComponent } from './pages/pages.component';
 
 export const routes: Routes = [
+    {path:"",component:HomeComponent},
     {path:"admin",component:AdminComponent,canActivate:[adminGuard]},
-    {path:"pages",component:AdminComponent,canActivate:[adminGuard]},
+    {path:"pages",component:PagesComponent,canActivate:[adminGuard]},
     {path:"login",component:LoginComponent},
     {path:"logout",component:LogoutComponent},
     {path:"home",component:HomeComponent},

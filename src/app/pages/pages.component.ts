@@ -23,7 +23,15 @@ export class PagesComponent {
 
 
   ngOnInit(): void {
-    this.pages = this.data.read("pages");
+    this.refresh();
+  }
+
+  async refresh(){
+    this.pages = await this.data.read("pages");
+  }
+
+  navigate(p:Page){
+    this.router.navigateByUrl("p/"+p.id);
   }
 
 }
