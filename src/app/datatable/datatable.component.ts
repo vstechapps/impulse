@@ -8,6 +8,4 @@ import { Component, Input } from '@angular/core';
   styleUrl: './datatable.component.less'
 })
 export class DatatableComponent {
-  @Input
-  Table
 }
