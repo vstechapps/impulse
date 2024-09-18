@@ -12,7 +12,6 @@ export class DataService {
 
   constructor(private firestore: FirestoreService,private loader:LoaderService) {
     logger.log("DataService: Init",this);
-    //this.load();
     logger.log("DataService: Init Complete",this);
   }
   

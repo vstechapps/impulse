@@ -1,9 +1,8 @@
 import { APP_INITIALIZER, ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { Data, provideRouter } from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { DataService } from './data.service';
-import { firstValueFrom } from 'rxjs';
 
 export function initializeApp(data: DataService) {
   return (): Promise<any> =>data.load()
