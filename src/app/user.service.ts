@@ -19,10 +19,10 @@ export class UserService {
   refresh:EventEmitter<User> = new EventEmitter<User>();
 
   constructor(private firebase: FirebaseService,private loader:LoaderService, private firestore:FirestoreService) {
-    logger.log("AuthenticationService: Init",this);
+    logger.log("UserService:  Init",this);
     this.auth = getAuth(this.firebase.app);
     this.intialize();
-    logger.log("AuthenticationService: Init Complete",this);
+    logger.log("UserService:  Init Complete",this);
   }
 
   intialize(){
@@ -31,7 +31,7 @@ export class UserService {
         this.user=undefined;
         this.refresh.emit(undefined);
       }else{
-        console.log("AuthenticationService:initialize:: Auth State Changed ",authState);
+        logger.log("UserService: initialize:: Auth State Changed ",authState);
         // Show Loader
         this.loader.show();
         let user:any= authState;
@@ -50,7 +50,7 @@ export class UserService {
     if (docSnap.exists()) {
       // Existing User - User already present in firestore
       let d:any = docSnap.data();
-      console.log("AuthenticationService:login:: Existing User :", d);
+      logger.log("UserService: login:: Existing User :", d);
       this.user = {id:d.id,name:d.name,email:d.email,contact:d.contact,role:d.role,image:d.image};
       this.refresh.emit(this.user);
       sessionStorage.setItem("user", JSON.stringify(this.user));
@@ -59,10 +59,10 @@ export class UserService {
       this.loader.hide();
     } else {
       // New User  - Register user details into firestore
-      logger.log("AuthenticationService:login:: Registering new user: "+user.email);
+      logger.log("UserService: login:: Registering new user: "+user.email);
       this.user = user;
       await setDoc(doc(collection(this.firestore.firestore,"users"), user.id),this.user);
-      logger.log("AuthenticationService:login:: Registered new user: "+user.email);
+      logger.log("UserService: login:: Registered new user: "+user.email);
       this.refresh.emit(this.user);
       sessionStorage.setItem("user", JSON.stringify(this.user));
       this.firebase.log(Events.SIGN_UP,this.user);
@@ -73,7 +73,7 @@ export class UserService {
   }
 
   async logout(){
-    logger.log("AuthenticationService:logout:: Logging out user: "+this.user?.email);
+    logger.log("UserService: logout:: Logging out user: "+this.user?.email);
     this.user=undefined;
     sessionStorage.clear();
     this.firebase.log(Events.LOGOUT,this.user);
