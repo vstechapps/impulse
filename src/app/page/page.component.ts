@@ -80,7 +80,7 @@ export class PageComponent {
         this.updateScript(page.script);
       }
     }else{
-      this.router.navigate(["home"]);
+      this.router.navigate([""]);
     }
   }
 

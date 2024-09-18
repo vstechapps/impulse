@@ -14,7 +14,7 @@ export class LogoutComponent {
 
   constructor(private router:Router, private auth: UserService){
     this.auth.refresh.subscribe(user=>{
-      if(user==undefined)this.router.navigate(["home"]);
+      if(user==undefined)this.router.navigate([""]);
     });
   }
 

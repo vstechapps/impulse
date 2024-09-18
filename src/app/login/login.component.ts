@@ -33,7 +33,7 @@ export class LoginComponent {
           this.router.navigateByUrl(redirect);
         }else{
           logger.log('LoginComponent: Login Success, Redirecting to home');
-          this.router.navigate(["home"]);
+          this.router.navigate([""]);
         }
       }else{
         logger.log('LoginComponent: User Auth State Null');
