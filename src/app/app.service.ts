@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { logger } from './logger.service';
 
 declare var app:AppService;
 
@@ -8,14 +9,19 @@ declare var app:AppService;
 })
 export class AppService {
 
-  public $header:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  public $header:Subject<boolean> = new Subject<boolean>();
 
   constructor() {
+    logger.log("AppService: Init",this);
     app = this;
+    logger.log("AppService: Init Complete",this);
   }
 
   public header(k:boolean){
-    this.$header.next(k);
+    logger.log("AppService: header::",k);
+    if(k!=undefined){
+      this.$header.next(k);
+    }
   }
 
 }

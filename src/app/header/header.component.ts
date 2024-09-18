@@ -5,6 +5,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { UserService } from '../user.service';
 import { NgIf } from '@angular/common';
 import { ConfigService } from '../config.service';
+import { logger } from '../logger.service';
 
 @Component({
   selector: 'app-header',
@@ -20,14 +21,18 @@ export class HeaderComponent {
   logo?:string;
 
   constructor(private app:AppService, public auth:UserService, private config:ConfigService){
+    logger.log("HeaderComponent: Init",this);
     this.header = this.config.get("header");
     if(this.header){
       this.enabled = this.header.show?this.header.show:false;
       this.menu = this.header.menu?this.header.menu:false;
       this.logo = this.header.logo?this.header.logo:undefined;
     }
-    this.app.$header.subscribe(k=>this.enabled=k);
-    
+    this.app.$header.subscribe(k=>{
+      this.enabled=k;
+      logger.log("HeaderComponent: Init Refresh",this);
+    });
+    logger.log("HeaderComponent: Init Complete",this);
   }
 
   home(){

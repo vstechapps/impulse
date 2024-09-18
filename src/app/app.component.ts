@@ -11,7 +11,6 @@ import { HeaderComponent } from './header/header.component';
   styleUrl: './app.component.less'
 })
 export class AppComponent {
-  header:boolean =true;
 
   constructor(public router: Router){
     

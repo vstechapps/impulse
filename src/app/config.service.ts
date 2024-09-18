@@ -12,8 +12,8 @@ export class ConfigService {
     logger.log("ConfigService: Init Complete",this);
   }
 
-  get(key:string){
-    return this.data.get(APP.CONFIG,key);
+  public get(key:string){
+    return this.data.read(APP.CONFIG,key);
   }
 
 }

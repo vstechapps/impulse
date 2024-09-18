@@ -53,8 +53,17 @@ export class DataService {
     return d;
   }
 
-  public read(col:string){
-    return this.data[col];
+
+  public read(col:string, key?:string){
+    let d = null;
+    if(key==null || key ==""){
+      d = this.data[col];
+    }else if(this.data[col]!=null && Array.isArray(this.data[col])){
+      d=this.data[col].filter((c:any)=>c.id==key)[0];
+    }else{
+      d = null;
+    }
+    return d;
   }
 }
 

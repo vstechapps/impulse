@@ -9,6 +9,7 @@ import { Page } from '../app.models';
 import { NgClass, NgIf } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { logger } from '../logger.service';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-page',
@@ -30,7 +31,8 @@ export class PageComponent {
 
   constructor(private router:Router,private route:ActivatedRoute, 
     private data:DataService, public user:UserService, private loader:LoaderService,
-    private firestore:FirestoreService){
+    private firestore:FirestoreService,
+    private app:AppService){
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
           this.init();
@@ -45,7 +47,7 @@ export class PageComponent {
 
   init(): void{
     let id = this.id? this.id: this.route.snapshot.paramMap.get('id');
-    logger.log("Loading Page: "+id);
+    logger.log("PageComponent: init:: "+id);
     if(id){
       this.refresh(id);
     }
@@ -55,7 +57,7 @@ export class PageComponent {
   async refresh(id:string){
     var page:Page = await this.data.get("pages",id);
     if(page && page.auth && this.user.user==null){
-      console.log("Redirecting to Login");
+      logger.log("PageComponent: refresh:: Redirect to Login");
       if(this.route.snapshot.url.length>0){
         let s:string[] = [];
         this.route.snapshot.url.forEach(u=>s.push(u.path));
@@ -65,7 +67,9 @@ export class PageComponent {
     }
     else if(page){
       this.page = page;
-      if(!page.header){window.postMessage("header");}
+      if(page.header){
+        this.app.header(page.header);
+      }
       if(page.html){
         this.updateView();
       }
@@ -82,7 +86,7 @@ export class PageComponent {
 
   updateView(){
     var el= document.getElementById("3593661b72952004");
-    console.log(el);
+    logger.log("PageComponent: updateView::",el)
     if(el && this.page && this.page.html)el.innerHTML = this.page.html;
   }
 
