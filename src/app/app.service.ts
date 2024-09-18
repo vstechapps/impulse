@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { logger } from './logger.service';
+import { Router } from '@angular/router';
 
 declare var app:AppService;
 
@@ -11,7 +12,7 @@ export class AppService {
 
   public $header:Subject<boolean> = new Subject<boolean>();
 
-  constructor() {
+  constructor(private router:Router) {
     logger.log("AppService: Init",this);
     app = this;
     logger.log("AppService: Init Complete",this);
@@ -22,6 +23,11 @@ export class AppService {
     if(k!=undefined){
       this.$header.next(k);
     }
+  }
+
+  public navigate(path:string){
+    logger.log("AppService: navigate:: "+path);
+    this.router.navigateByUrl(path);
   }
 
 }

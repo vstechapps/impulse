@@ -13,14 +13,7 @@ export class HomeComponent {
 
   page:string="home";
 
-  constructor(private router:Router){
-    var redirect = sessionStorage.getItem("redirect");
-    if(redirect){
-      sessionStorage.removeItem("redirect");
-      this.router.navigateByUrl(redirect);
-    }else{
-      this.router.navigateByUrl("");
-    }
+  constructor(){
     
   }
 

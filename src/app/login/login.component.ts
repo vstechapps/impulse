@@ -24,7 +24,7 @@ export class LoginComponent {
   }
 
   init(){
-    var redirect:any = sessionStorage.getItem("redirect");
+    let redirect:any = sessionStorage.getItem("redirect");
     sessionStorage.removeItem("redirect");
     this.auth.refresh.subscribe(user=>{
       if(user!=null){
@@ -36,8 +36,7 @@ export class LoginComponent {
           this.router.navigate(["home"]);
         }
       }else{
-        logger.log('LoginComponent: Login Failed, Redirecting to home');
-        this.router.navigate(["home"]);
+        logger.log('LoginComponent: User Auth State Null');
       }
     });
   }
