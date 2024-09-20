@@ -1,13 +1,16 @@
 <div class="modal d-block" tabindex="-1" *ngIf="dialog">
     <div class="modal-dialog">
-        <div class="modal-content" *ngIf="dialog.form">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{dialog.title}}</h5>
-                <button type="button" class="btn-close" (click)="action.emit('close_dialog')" aria-label="Close"></button>
+                <button type="button" class="btn-close" (click)="dialog=undefined" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body"  *ngIf="dialog.form">
                <app-form [form]="dialog.form" (submit)="action.emit($event)"></app-form>
             </div>
+            <div class="modal-body" *ngIf="dialog.table">
+                <app-table [table]="dialog.table" (action)="action.emit($event)"></app-table>
+             </div>
         </div>
     </div>
 </div>

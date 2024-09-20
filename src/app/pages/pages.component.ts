@@ -3,12 +3,12 @@ import { Page } from '../app.models';
 import { DataService } from '../data.service';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
-import { DatatableComponent } from '../datatable/datatable.component';
+import { TableComponent } from '../table/table.component';
 
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [NgFor,DatatableComponent],
+  imports: [NgFor,TableComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.less'
 })

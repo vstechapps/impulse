@@ -1,1 +1,33 @@
-<p>table works!</p>
+<!-- table.component.html -->
+<div class="container mt-5" *ngIf="table">
+    <!-- Search input -->
+    <input class="form-control mb-3" placeholder="Search.." [(ngModel)]="key"
+        (ngModelChange)="search()" />
+
+    <!-- Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th *ngFor="let c of table.cols">{{c | uppercase}} </th>
+                <th *ngIf="table.actions && table.actions.length>0">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of output">
+                <td *ngFor="let c of table.cols">{{ item[c] }}</td>
+                <td *ngIf="table.actions && table.actions.length>0">
+                    <button *ngFor="let a of table.actions" class="btn btn-sm btn-primary mx-2" (click)="action.emit(a.action)"><i *ngIf="a.icon" class="material-icons">{{a.icon}}</i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination controls -->
+    <nav>
+        <ul class="pagination justify-content-center">
+            <li class="page-item pointer" *ngFor="let i of [].constructor(pages); index as page" [class.active]="page === current" (click)="change(page)">
+                <a class="page-link">{{ page+1 }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -6,7 +6,6 @@ import { LogoutComponent } from './logout/logout.component';
 import { HomeComponent } from './home/home.component';
 import { PageComponent } from './page/page.component';
 import { PagesComponent } from './pages/pages.component';
-import { DatatableComponent } from './datatable/datatable.component';
 
 export const routes: Routes = [
     {path:"",component:HomeComponent},
@@ -16,6 +15,5 @@ export const routes: Routes = [
     {path:"logout",component:LogoutComponent},
     {path:"home",component:HomeComponent},
     {path:"p/:id",component:PageComponent},
-    {path:"page/:id",component:PageComponent},
-    {path:"datatable",component:DatatableComponent}
+    {path:"page/:id",component:PageComponent}
 ];

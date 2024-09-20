@@ -26,7 +26,7 @@ export interface Page {
 export interface Dialog {
   title?: string;
   form?: Form;
-  table?: any;
+  table?: Table;
 }
 
 export interface Form {
@@ -38,8 +38,8 @@ export interface Form {
 
 export interface Table {
   data: any[];
-  cols: string[];
-  actions: Action[];
+  cols?: string[];
+  actions?: Action[];
 }
 
 export interface Control {

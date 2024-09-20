@@ -3,11 +3,12 @@ import { Router, RouterOutlet } from '@angular/router';
 import { LoaderComponent } from './loader/loader.component';
 import { HeaderComponent } from './header/header.component';
 import { logger } from './logger.service';
+import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent,LoaderComponent,RouterOutlet],
+  imports: [HeaderComponent,LoaderComponent,RouterOutlet,DialogComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.less'
 })
