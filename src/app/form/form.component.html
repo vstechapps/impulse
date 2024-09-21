@@ -3,8 +3,8 @@
         <div *ngIf="['text','email','password','number'].indexOf(control.type)>-1">
             <label [for]="control.id" class="form-label" *ngIf="control.label" >{{control.label}}</label>
             <input [type]="control.type" class="form-control" [value]="control.value" (change)="update(control,$event)" [id]="control.id" [placeholder]="control.placeholder" [name]="control.name">
-            <span *ngIf="control.values" class="mx-2 material-icons pointer expand" (click)="expand=!expand">{{expand?'expand_less':'expand_more'}}</span>
-            <div *ngIf="expand && control.values" class="mt-2 exp-con">
+            <span *ngIf="control.values!=null" class="mx-2 material-icons pointer" [ngClass]="{'expand':control.values!=null}" (click)="expand=!expand">{{expand?'expand_less':'expand_more'}}</span>
+            <div *ngIf="expand && control.values" class="form-control exp-con">
                 <button class="m-2 btn btn-sm btn-primary" *ngFor="let v of control.values" (click)="update(control,{'target':{'value':v}})">{{v}}</button>
             </div>
         </div>

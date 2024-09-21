@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Control, Form } from '../app.models';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [NgIf,NgFor,FormsModule],
+  imports: [NgIf,NgFor,FormsModule, NgClass],
   templateUrl: './form.component.html',
   styleUrl: './form.component.less'
 })
